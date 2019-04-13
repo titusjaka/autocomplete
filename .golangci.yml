@@ -1,0 +1,97 @@
+run:
+  concurrency: 4
+  deadline: 5m
+  issues-exit-code: 1
+  tests: true
+  build-tags: []
+  skip-dirs:
+    - vendor
+  skip-files:
+    - ".*easyjson.*"
+  modules-download-mode: vendor
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: false
+    ignore: fmt:.*,io/ioutil:^Read.*
+  govet:
+    check-shadowing: true
+    settings:
+      printf:
+        funcs:
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Infof
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Warnf
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Errorf
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Fatalf
+  golint:
+    min-confidence: 0.8
+  gofmt:
+    simplify: true
+  goimports:
+    local-prefixes: github.com/titusjaka/autocomplete
+  gocyclo:
+    min-complexity: 30
+  goconst:
+    min-len: 3
+    min-occurrences: 3
+  depguard:
+    list-type: blacklist
+    include-go-root: false
+  misspell:
+    locale: US
+    ignore-words: []
+  lll:
+    line-length: 150
+    tab-width: 2
+  unused:
+    check-exported: false
+  unparam:
+    check-exported: false
+  nakedret:
+    max-func-lines: 5
+  prealloc:
+    simple: true
+    range-loops: true
+    for-loops: false
+  gocritic:
+    disabled-checks:
+      - regexpMust
+    enabled-tags:
+      - performance
+
+    settings:
+      captLocal:
+        paramsOnly: true
+      rangeValCopy:
+        sizeThreshold: 32
+
+linters:
+  enable-all: true
+  disable:
+    - maligned
+    - dupl
+  disable-all: false
+  fast: false
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gocyclo
+        - errcheck
+        - dupl
+        - gosec
+
+    - linters:
+        - lll
+      text: "^//( )?go:generate "
+  exclude-use-default: false
+  max-per-linter: 0
+  max-same-issues: 0
+  new: false
