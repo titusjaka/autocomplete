@@ -5,7 +5,7 @@
 The following service acts as a cache for aviasales autocomplete. It does:
 
 - Proxies all search queries right to [aviasales autocomplete](https://places.aviasales.ru/v2/places.json)
-  example: 
+- Converts responses to the format required by web widgets:
   ```json
     {
         "slug": "MOW",
@@ -13,7 +13,6 @@ The following service acts as a cache for aviasales autocomplete. It does:
         "subtitle": "Russia"
       }
    ```
-- Converts responses to the format required by web widgets
 - Stores converted responses in a local bolt DB storage to avoid delays on service-to-service communication 
 
 ## How to run service
