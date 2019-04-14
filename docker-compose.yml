@@ -1,6 +1,6 @@
 version: "2"
 services:
   autocomplete:
-    image: titusjaka/avs-autocomplere-stub
+    image: titusjaka/autocomplete
     ports:
       - 8080:8080
