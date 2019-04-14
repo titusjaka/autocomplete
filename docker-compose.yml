@@ -2,5 +2,11 @@ version: "2"
 services:
   autocomplete:
     image: titusjaka/autocomplete
+    environment:
+      - AVS_STUB_LISTEN=:8080
+      - AVS_STUB_VERBOSE=true
+      - AVS_STUB_DBPATH=autocomplete.db
+      - AVS_AUTOCOMPLETE_URL=https://places.aviasales.ru
+      - AVS_AUTOCOMPLETE_TIMEOUT=3s
     ports:
       - 8080:8080
